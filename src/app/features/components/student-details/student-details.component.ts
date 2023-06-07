@@ -12,6 +12,7 @@ export class StudentDetailsComponent implements OnInit {
 
   public studentForm!: FormGroup;
   public studentsData: any;
+  public loading: boolean = false;
   constructor(
     private studentServicesService: StudentServicesService,
     private fb: FormBuilder,
@@ -28,17 +29,22 @@ export class StudentDetailsComponent implements OnInit {
     this.studentForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      gender: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      course: ['', Validators.required]
+      course: ['', Validators.required],
+      dob: ['', Validators.required]
     })
   }
 
   onSubmit() {
     if (this.studentForm.invalid) {
+      this.loading = true
       this.toastrService.error("Fill all details...", 'Error');
+      this.loading = false
       return
     }
+    this.loading = true
     let data = {
       ...this.studentForm.value
     }
@@ -50,12 +56,16 @@ export class StudentDetailsComponent implements OnInit {
       this.studentServicesService.updateOnaddStudent(temp).then((res: any) => {
         console.log('res :>> ', res);
         this.toastrService.success("Data insert successfully", 'Success');
+        this.studentForm.reset()
+        this.loading = false;
       }).catch((err: any) => {
         console.log('err :>> ', err);
         this.toastrService.error(err.message, 'Error');
+        this.loading = false;
       })
     }).catch((err: any) => {
       this.toastrService.error(err.message, 'Error');
+      this.loading = false;
     })
     console.log('this.studentForm.value :>> ', this.studentForm.value);
   }

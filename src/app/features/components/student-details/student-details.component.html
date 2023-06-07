@@ -1,62 +1,81 @@
 <div class="container-fluid p-5">
   <div class="row border rounded">
-    <div class="col-lg-6 bordered p-3 bg-light">
+    <div class="col-lg-5 bordered p-3 bg-light">
       <h1 class="h1 text-center">Student Registration</h1>
       <hr />
       <form class="row g-3" [formGroup]="studentForm">
         <div class="col-lg-6">
-          <label for="" class="form-label">First Name</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            formControlName="firstName"
-            placeholder="Enter Your First Name"
-          />
+          <span class="p-float-label mt-3">
+            <input pInputText id="username" formControlName="firstName" />
+            <label htmlFor="First Name">First Name</label>
+          </span>
         </div>
         <div class="col-lg-6">
-          <label for="" class="form-label">Last Name</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            formControlName="lastName"
-            placeholder="Enter Your Last Name"
-          />
+          <span class="p-float-label mt-3">
+            <input pInputText id="username" formControlName="lastName" />
+            <label htmlFor="Last Name">Last Name</label>
+          </span>
+        </div>
+        <div class="d-flex flex-wrap gap-3">
+          <label for="">Gender : </label>
+          <div class="flex align-item-center">
+            <p-radioButton
+              formControlName="gender"
+              value="Male"
+              inputId="gen"
+            ></p-radioButton>
+            <label for="gen" class="mx-2">Male</label>
+          </div>
+          <div class="flex align-item-center">
+            <p-radioButton
+              formControlName="gender"
+              value="Female"
+              inputId="gen2"
+            ></p-radioButton>
+            <label for="gen2" class="mx-2">Female</label>
+          </div>
         </div>
         <div class="col-lg-6">
-          <label for="" class="form-label">E-mail Address</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            formControlName="email"
-            placeholder="Enter Your E-mail"
-          />
+          <span class="p-float-label mt-3">
+            <input pInputText id="username" formControlName="email" />
+            <label htmlFor="E-mail Address">E-mail Address</label>
+          </span>
         </div>
         <div class="col-lg-6">
-          <label for="" class="form-label">Phone</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            formControlName="phone"
-            placeholder="Enter Your Phone Number"
-          />
+          <div class="col-lg-6">
+            <span class="p-float-label mt-3">
+              <input pInputText id="username" formControlName="phone" />
+              <label htmlFor="Phone">Phone</label>
+            </span>
+          </div>
         </div>
         <div class="col-lg-12">
-          <label for="" class="form-label">Course</label>
-          <input
-            type="text"
-            class="form-control form-control-lg"
-            formControlName="course"
-            placeholder="Enter Your Course"
-          />
+          <span class="p-float-label mt-3 mb-2">
+            <input pInputText id="username" formControlName="course" />
+            <label htmlFor="Course">Course</label>
+          </span>
+        </div>
+        <div class="col-lg-12">
+          <p-calendar
+            id="datePicker"
+            [showIcon]="true"
+            formControlName="dob"
+          ></p-calendar>
         </div>
         <div class="mt-2">
-          <button class="btn btn-lg btn-primary" (click)="onSubmit()">
+          <!-- <button class="btn btn-lg btn-primary" (click)="onSubmit()">
             Submit
-          </button>
+          </button> -->
+          <p-button
+            pRipple
+            label="Submit"
+            [loading]="loading"
+            (click)="onSubmit()"
+          ></p-button>
         </div>
       </form>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-7">
       <h1 class="h1 text-success text-center p-2">Student Details</h1>
       <hr />
       <table class="table">
@@ -65,6 +84,8 @@
             <th>Id</th>
             <th>Surname</th>
             <th>Name</th>
+            <th>Gender</th>
+            <th>Birth-Date</th>
             <th>E-mail</th>
             <th>Phone</th>
             <th>Course</th>
@@ -74,24 +95,28 @@
         <tbody>
           <tr *ngFor="let student of studentsData; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ student.firstName }}</td>
-            <td>{{ student.lastName }}</td>
-            <td>{{ student.email }}</td>
-            <td>{{ student.phone }}</td>
-            <td>{{ student.course }}</td>
+            <td>{{ student?.firstName }}</td>
+            <td>{{ student?.lastName }}</td>
+            <td>{{ student?.gender }}</td>
+            <td>{{ student?.dob }}</td>
+            <td>{{ student?.email }}</td>
+            <td>{{ student?.phone }}</td>
+            <td>{{ student?.course }}</td>
             <td>
-              <button
-                class="btn btn-md btn-success mx-1"
+              <p-button
+                icon="pi pi-items"
+                styleClass="p-button-success p-button-sm mx-2"
                 (click)="onUpdate(student)"
               >
-                Edit
-              </button>
-              <button
-                class="btn btn-md btn-danger"
+                <i class="fa-solid fa-pen"></i>
+              </p-button>
+              <p-button
+                icon="pi pi-items"
+                styleClass="p-button-danger p-button-sm"
                 (click)="onDelete(student.id)"
               >
-                Delete
-              </button>
+                <i class="fa-solid fa-trash"></i>
+              </p-button>
             </td>
           </tr>
           <tr *ngIf="!studentsData?.length">

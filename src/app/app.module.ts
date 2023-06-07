@@ -10,6 +10,12 @@ import { StudentDetailsComponent } from './features/components/student-details/s
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { CalendarModule } from 'primeng/calendar';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,12 @@ import { ToastrModule } from 'ngx-toastr';
         progressAnimation: 'decreasing'
       }
     ),
+    InputTextModule,
+    InputNumberModule,
+    ButtonModule,
+    RippleModule,
+    CalendarModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
